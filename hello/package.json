@@ -15,5 +15,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-    "homepage": "https://guohjia.github.io/project-react-1"
+    "homepage": "https://guohjia.github.io/project-react-1/build"
 }
