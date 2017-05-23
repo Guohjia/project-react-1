@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import './reset.css';
 import TodoInput from './TodoInput';
@@ -36,7 +36,7 @@ class App extends Component {
           {todos}
         </ol>
       </div>
-    );
+    )
   }
 }
 

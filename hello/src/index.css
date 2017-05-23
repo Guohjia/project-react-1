@@ -1,13 +1,8 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: coral;
+  background:#ddd;
 }
 #root {
-  padding: 40vh 0;
-  text-align: center;
-}
-h1 {
-  color:#fff;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
