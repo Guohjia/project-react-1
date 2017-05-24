@@ -16,15 +16,14 @@ class App extends Component {
   }
 
   render() {
-    let todos=this.state.todoList.map((item,index)=>{
-      return (
+    let todos=this.state.todoList.filter((item)=>!item.deleted).map((item,index)=>{
+        return (
         <li key={index}>
           <TodoItem todo={item} onToggle={this.toggle.bind(this)}
               onDelete={this.delete.bind(this)}/>
         </li>
       )
-    })
-
+    })      
     return (
       <div className="App">
         <h1>我的待办</h1>
