@@ -51,6 +51,11 @@ class App extends Component {
     })
   }
   addTodo(event) {
+
+   if((/\S+/).test(event.target.value)===false){
+     alert('输入为空，请输入有效的待办事项')
+     return
+  }
     this.state.todoList.push({
       id: idMaker(),
       title: event.target.value,
