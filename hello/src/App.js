@@ -4,14 +4,14 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
+import * as localStore from '/localStore'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       newTodo: '',
-      todoList: [
-      ]
+      todoList:localStore.load('todoList') || []     //每次进入页面的时候load
     }
   }
   render() {
@@ -43,15 +43,16 @@ class App extends Component {
   toggle(e, todo) {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
+    localStore.save('todoList',this.state.todoList)   //每次setState的时候存储用户操作
   }
   changeTitle(event) {
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList
     })
+    localStore.save('todoList',this.state.todoList)
   }
   addTodo(event) {
-
    if((/\S+/).test(event.target.value)===false){
      alert('输入为空，请输入有效的待办事项')
      return
@@ -66,10 +67,12 @@ class App extends Component {
       newTodo: '',
       todoList: this.state.todoList
     })
+    localStore.save('todoList',this.state.todoList)
   }
   delete(event, todo) {
     todo.deleted = true
     this.setState(this.state)
+    localStore.save('todoList',this.state.todoList)
   }
 }
 export default App;
