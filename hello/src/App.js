@@ -4,7 +4,7 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
-import * as localStore from '/localStore'
+import * as localStore from './localStore'
 
 class App extends Component {
   constructor(props) {
