@@ -5,7 +5,6 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
 import * as localStore from './localStore'
-import AV from 'leancloud-storage'
 
 
 
