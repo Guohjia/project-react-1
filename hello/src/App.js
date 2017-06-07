@@ -4,7 +4,6 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
-import * as localStore from './localStore'
 
 
 
@@ -13,7 +12,7 @@ class App extends Component {
     super(props)
     this.state = {
       newTodo: '',
-      todoList:localStore.load('todoList') || []     //每次进入页面的时候load
+      todoList: []     //每次进入页面的时候load
     }
   }
   render() {
@@ -42,7 +41,7 @@ class App extends Component {
     )
   }
   componentDidUpdate() {
-    localStore.save('todoList',this.state.todoList)  //每次setState的时候存储用户操作
+    l //每次setState的时候存储用户操作
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
   }
   toggle(e, todo) {
