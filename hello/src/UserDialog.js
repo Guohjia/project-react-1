@@ -4,7 +4,11 @@ export default class UserDialog extends Component {
     constructor(props){
         super(props)
         this.state={
-            selected:'signIn'
+            selected:'signIn',
+            formData:{
+                username:'',
+                password:''
+            }
         }
     }
     switch(e) {
@@ -12,17 +16,31 @@ export default class UserDialog extends Component {
             selected:e.target.value
         })
     }
+    signUp(e){}
+    signIn(e){}
+    changeUsername(e){
+        let state=JSON.parse(JSON.stringify(this.state))  //先深拷贝state，然后再改变需要的属性，最后再setState;因为不能直接对state进行操作，否则会发警告，warning  Do not mutate state directly. Use setState()
+        stateCopy.formData.username=e.target.value  //将修改的用户名放入stateCopy中，然后setState
+        this.setState(stateCopy)
+    }
+    changePassword(e){
+        let stateCopy=JSON.parse(JSON.stringify(this.state))
+        stateCopy.formData.password=e.target.value
+        this.setState(stateCopy)
+    }
     render(){
         let signUpForm=(
-            <form action="" className="signUp">  
+            <form className="signUp" onSubmit={this.signUp.bind(this)}>  
                             {/*注册*/}
                             <div className="row">
                                 <label>用户名</label>
-                                <input type="text"/>
+                                <input type="text" value={this.state.formData.username}
+                                onChange={this.changeUsername.bind(this)}/>
                             </div>
                             <div className="row">
                                 <label>密码</label>
-                                <input type="password"/>
+                                <input type="password" value={this.state.formData.password}
+                                onChange={this.changePassword.bind(this)}/>
                             </div>
                             <div className="row actions">
                                 <button type="submit">注册</button>
@@ -30,15 +48,17 @@ export default class UserDialog extends Component {
                         </form>
         )
         let signInForm=(
-            <form action="" className="signIn">
+            <form className="signIn" onSubmit={this.signIn.bind(this)}>
                             {/*登录*/}
                             <div className="row">
                                  <label>用户名</label>
-                                <input type="text"/>
+                                <input type="text" value={this.state.formData.username}
+                                onChange={this.changeUsername.bind(this)}/>
                             </div>
                             <div className="row">
                                 <label>密码</label>
-                                <input type="password"/>
+                                <input type="password" value={this.state.formData.password}
+                                onChange={this.changePassword.bind(this)}/>
                             </div>
                             <div className="row actions">
                                 <button type="submit">登录</button>
