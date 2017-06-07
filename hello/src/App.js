@@ -4,7 +4,7 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
-
+import UserDialog from './UserDialog'
 
 
 class App extends Component {
@@ -37,11 +37,12 @@ class App extends Component {
         <ol className="todoList">
           {todos}
         </ol>
+        <UserDialog />
       </div>
     )
   }
   componentDidUpdate() {
-    l //每次setState的时候存储用户操作
+     //每次setState的时候存储用户操作
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
   }
   toggle(e, todo) {
