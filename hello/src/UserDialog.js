@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import './UserDialog.css'
+import {signUp} from './leanCloud'
 export default class UserDialog extends Component {
     constructor(props){
         super(props)
@@ -16,7 +17,17 @@ export default class UserDialog extends Component {
             selected:e.target.value
         })
     }
-    signUp(e){}
+    signUp(e){
+        e.preventDefault()
+        let {username,password}=this.state.formData
+        let success=(user)=>{
+            console.log(user)
+        }
+        let error=(error)=>{
+            console.log(error)
+        }
+        signUp(username,password,success,error)
+    }
     signIn(e){}
     changeFormData(key,e){
         let stateCopy=JSON.parse(JSON.stringify(this.state))  //先深拷贝state，然后再改变需要的属性，最后再setState;因为不能直接对state进行操作，否则会发警告，warning  Do not mutate state directly. Use setState(
@@ -30,7 +41,7 @@ export default class UserDialog extends Component {
                             <div className="row">
                                 <label>用户名</label>
                                 <input type="text" value={this.state.formData.username}
-                                onChange={this.changeFormData.bind(this,'username')}/>
+                                onChange={this.changeFormData.bind(this,'username')}/> {/*bind不仅绑定this，而且传入第一个参数，即传给函数changeFormData的形参key*/}
                             </div>
                             <div className="row">
                                 <label>密码</label>
