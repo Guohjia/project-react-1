@@ -32,6 +32,14 @@ export function getCurrentUser(){
     return null
   }
 }
+export function signIn(username, password, successFn, errorFn){
+  AV.User.logIn(username, password).then(function (loginedUser) {
+     let user = getUserFromAVUser(loginedUser)
+     successFn.call(null, user)
+   }, function (error) {
+     errorFn.call(null, error)
+   })
+ }
 
 export function signOut(){
   AV.User.logOut()

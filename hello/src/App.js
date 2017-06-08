@@ -5,14 +5,14 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
 import UserDialog from './UserDialog';
-import {getCurrentUser,signOut} from './leanCloud.js'
+import { getCurrentUser, signOut } from './leanCloud.js'
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user:getCurrentUser()||{},
+      user: getCurrentUser() || {},
       newTodo: '',
       todoList: []     //每次进入页面的时候load
     }
@@ -30,8 +30,8 @@ class App extends Component {
       })
     return (
       <div className="App">
-        <h1>{this.state.username||'我'}的待办
-          {this.state.user.id?<button onClick={this.signOut.bind(this)}></button>:null}
+        <h1>{this.state.user.username|| '我'}的待办
+          {this.state.user.id ? <button onClick={this.signOut.bind(this)}>登出</button> : null}
         </h1>
         <div className="inputWrapper">
           <TodoInput content={this.state.newTodo}
@@ -41,28 +41,33 @@ class App extends Component {
         <ol className="todoList">
           {todos}
         </ol>
-        {this.state.user.id?null:<UserDialog onSignUp={this.onSignUp.bind(this)}/>}
+        {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)} onSignIn={this.onSignUp.bind(this)} />}
       </div>
     )
   }
-  signOut(){
+  signOut() {
     signOut();
-    let stateCopy=JSON.parse(JSON.stringify(this.state))
-    stateCopy.user={}
+    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    stateCopy.user = {}
     this.setState(stateCopy)
   }
-  onSignUp(user){
-    let stateCopy=JSON.parse(JSON.stringify(this.state))
-    stateCopy.user=user
+  onSignUp(user) {
+    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    stateCopy.user = user
     this.setState(stateCopy)
   }
+  onSignIn(user){
+     let stateCopy = JSON.parse(JSON.stringify(this.state)) 
+     stateCopy.user = user  
+     this.setState(stateCopy)
+   }
   componentDidUpdate() {
-     //每次setState的时候存储用户操作
+    //每次setState的时候存储用户操作
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
   }
   toggle(e, todo) {
     todo.status = todo.status === 'completed' ? '' : 'completed'
-    this.setState(this.state)  
+    this.setState(this.state)
   }
   changeTitle(event) {
     this.setState({
@@ -71,10 +76,10 @@ class App extends Component {
     })
   }
   addTodo(event) {
-   if((/\S+/).test(event.target.value)===false){
-     alert('输入为空，请输入有效的待办事项')
-     return
-  }
+    if ((/\S+/).test(event.target.value) === false) {
+      alert('输入为空，请输入有效的待办事项')
+      return
+    }
     this.state.todoList.push({
       id: idMaker(),
       title: event.target.value,
