@@ -4,14 +4,15 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
-import UserDialog from './UserDialog'
+import UserDialog from './UserDialog';
+import {getCurrentUser} from './leanCloud.js'
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user:{},
+      user:getCurrentUser()||{},
       newTodo: '',
       todoList: []     //每次进入页面的时候load
     }
