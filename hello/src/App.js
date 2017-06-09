@@ -5,7 +5,8 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
 import UserDialog from './UserDialog';
-import { getCurrentUser, signOut } from './leanCloud.js'
+import { getCurrentUser, signOut,todolistStore } from './leanCloud.js'
+
 
 
 class App extends Component {
@@ -46,9 +47,10 @@ class App extends Component {
     )
   }
   signOut() {
-    signOut();  //这里的signOut是从leanCloud导入的LeanCloud
+    todolistStore(this.state.todoList);   //登出的时候存储todolist
+    signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
     let stateCopy = JSON.parse(JSON.stringify(this.state))
-    stateCopy.user = {}
+    stateCopy.user = {} 
     this.setState(stateCopy)
   }
   onSignUpOronSignIn(user) {

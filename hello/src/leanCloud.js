@@ -9,46 +9,65 @@ AV.init({
 
 export default AV
 
-export function signUp(username,password,successFn,errorFn){
-  var user=new AV.User()
+
+// var TestObject = AV.Object.extend('TestObject');
+// var testObject = new TestObject();
+// testObject.save({
+//   words: 'Hello World!'
+// }).then(function(object) {
+//   alert('LeanCloud Rocks!');
+// })
+
+export function signUp(username, password, successFn, errorFn) {
+  var user = new AV.User()
   user.setUsername(username)
   user.setPassword(password)
-  user.signUp().then(function(loginedUser){
-    console.log(loginedUser)
+  user.signUp().then(function (loginedUser) {
     //loginedUser是leanCloud自带对象，里面有id，attributes等属性或对象
-    let user=getUserFromAVUser(loginedUser)
-    successFn.call(null,user)
-  },function(error){
-    errorFn.call(null,error)
+    let user = getUserFromAVUser(loginedUser)
+    successFn.call(null, user)
+  }, function (error) {
+    errorFn.call(null, error)
   })
   return undefined
 }
 
-export function getCurrentUser(){
-  let user=AV.User.current();
-  if(user){
+export function getCurrentUser() {
+  let user = AV.User.current();
+  if (user) {
     return getUserFromAVUser(user)
-  }else{
+  } else {
     return null
   }
 }
-export function signIn(username, password, successFn, errorFn){
+export function signIn(username, password, successFn, errorFn) {
   AV.User.logIn(username, password).then(function (loginedUser) {
-     let user = getUserFromAVUser(loginedUser)
-     successFn.call(null, user)
-   }, function (error) {
-     errorFn.call(null, error)
-   })
- }
+    let user = getUserFromAVUser(loginedUser)
+    successFn.call(null, user)
+  }, function (error) {
+    errorFn.call(null, error)
+  })
+}
 
-export function signOut(){
+export function signOut() {
   AV.User.logOut()
   return undefined
 }
 
-function getUserFromAVUser(AVUser){
+export function todolistStore(Todolists) {
+  var TodolistStore = AV.Object.extend('TodolistStore');
+  var todolistStore = new TodolistStore();
+  todolistStore.save({
+    todolists: Todolists
+  }).then(function (object) {
+    console.log(object)
+    alert('TodoList Store!');
+  })
+}
+
+function getUserFromAVUser(AVUser) {
   return {
-    id:AVUser.id,
+    id: AVUser.id,
     ...AVUser.attributes //把 attributes对象里的属性及对应的属性值一起返回
   }
 }

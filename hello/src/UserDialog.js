@@ -59,6 +59,9 @@ export default class UserDialog extends Component {
         stateCopy.formData[key]=e.target.value
         this.setState(stateCopy)
     }
+    // JSONCopy(data){
+    //     return JSON.parse(JSON.stringify(data))
+    // }  JSON深拷贝封装
     render(){
         let signUpForm=(
             <form className="signUp" onSubmit={this.signUp.bind(this)}>  
