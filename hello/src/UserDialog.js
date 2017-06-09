@@ -47,6 +47,9 @@ export default class UserDialog extends Component {
                 case 210:
                     alert('用户名与密码不匹配')
                     break
+                case 211:
+                    alert('不存在的用户名，请注册')
+                    break
                 default:
                 alert(error)
                 break
@@ -55,13 +58,13 @@ export default class UserDialog extends Component {
         signIn(username,password,success,error)
     }
     changeFormData(key,e){
-        let stateCopy=JSON.parse(JSON.stringify(this.state))  //先深拷贝state，然后再改变需要的属性，最后再setState;因为不能直接对state进行操作，否则会发警告，warning  Do not mutate state directly. Use setState(
+        let stateCopy=this.JSONCopy(this.state)  //先深拷贝state，然后再改变需要的属性，最后再setState;因为不能直接对state进行操作，否则会发警告，warning  Do not mutate state directly. Use setState(
         stateCopy.formData[key]=e.target.value
         this.setState(stateCopy)
     }
-    // JSONCopy(data){
-    //     return JSON.parse(JSON.stringify(data))
-    // }  JSON深拷贝封装
+    JSONCopy(data){
+        return JSON.parse(JSON.stringify(data))
+    }  //JSON深拷贝封装
     render(){
         let signUpForm=(
             <form className="signUp" onSubmit={this.signUp.bind(this)}>  

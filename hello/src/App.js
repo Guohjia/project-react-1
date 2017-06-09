@@ -7,8 +7,6 @@ import 'normalize.css';
 import UserDialog from './UserDialog';
 import { getCurrentUser, signOut,todolistStore } from './leanCloud.js'
 
-
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +15,7 @@ class App extends Component {
       newTodo: '',
       todoList: []     //每次进入页面的时候load
     }
+    this.JSONCopy=this.JSONCopy.bind(this)
   }
   render() {
     let todos = this.state.todoList
@@ -49,15 +48,19 @@ class App extends Component {
   signOut() {
     todolistStore(this.state.todoList);   //登出的时候存储todolist
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
-    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    let stateCopy = this.JSONCopy(this.state)
     stateCopy.user = {} 
     this.setState(stateCopy)
   }
   onSignUpOronSignIn(user) {
-    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    let stateCopy = this.JSONCopy(this.state)
     stateCopy.user = user
     this.setState(stateCopy)
   }
+  JSONCopy(data){
+        console.log(data)
+        return JSON.parse(JSON.stringify(data))
+    }  //JSON深拷贝封装
   componentDidUpdate() {
     //每次setState的时候存储用户操作
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
