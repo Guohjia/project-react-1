@@ -18,10 +18,11 @@ export default AV
 //   alert('LeanCloud Rocks!');
 // })
 
-export function signUp(username, password, successFn, errorFn) {
+export function signUp(email,username, password, successFn, errorFn) {
   var user = new AV.User()
   user.setUsername(username)
   user.setPassword(password)
+  user.setEmail(email)
   user.signUp().then(function (loginedUser) {
     //loginedUser是leanCloud自带对象，里面有id，attributes等属性或对象
     let user = getUserFromAVUser(loginedUser)
@@ -61,7 +62,7 @@ export function todolistStore(Todolists) {
     todolists: Todolists
   }).then(function (object) {
     // console.log(object)
-    alert('TodoList Store!');
+    // alert('TodoList Store!');
   })
 }
 
