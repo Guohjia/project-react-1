@@ -60,7 +60,7 @@ export function todolistStore(Todolists) {
   todolistStore.save({
     todolists: Todolists
   }).then(function (object) {
-    console.log(object)
+    // console.log(object)
     alert('TodoList Store!');
   })
 }

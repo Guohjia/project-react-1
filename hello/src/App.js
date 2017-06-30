@@ -58,7 +58,6 @@ class App extends Component {
     this.setState(stateCopy)
   }
   JSONCopy(data){
-        console.log(data)
         return JSON.parse(JSON.stringify(data))
     }  //JSON深拷贝封装
   componentDidUpdate() {
@@ -80,7 +79,7 @@ class App extends Component {
       alert('输入为空，请输入有效的待办事项')
       return
     }
-    this.state.todoList.push({
+    this.state.todoList.unshift({
       id: idMaker(),
       title: event.target.value,
       status: null,
