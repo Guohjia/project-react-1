@@ -22,7 +22,7 @@ export const TodoModel = {
       errorFn && errorFn.call(null, error)
     })
   },
-  
+
   create({ status, title, deleted }, successFn, errorFn) {
     let Todo = AV.Object.extend('Todo')
     let todo = new Todo()
@@ -39,11 +39,22 @@ export const TodoModel = {
       errorFn && errorFn.call(null, error) ///???
     });
   },
-  update() {
-
+  update({id, title, status, deleted}, successFn, errorFn) {
+    let todo = AV.Object.createWithoutData('Todo', id)
+    title !== undefined && todo.set('title', title)
+    status !== undefined && todo.set('status', status)
+    deleted !== undefined && todo.set('deleted', deleted)
+    todo.save().then((response) => {
+    successFn && successFn.call(null)
+}, (error) => errorFn && errorFn.call(null, error))
   },
-  destroy() {
-
+  destroy(todoId, successFn, errorFn) {
+    let todo = AV.Object.createWithoutData('Todo', todoId)
+   todo.destroy().then(function (response) {
+     successFn && successFn.call(null)
+   }, function (error) {
+     errorFn && errorFn.call(null, error)
+   });
   }
 
 }

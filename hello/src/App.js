@@ -20,14 +20,14 @@ class App extends Component {
     let user = getCurrentUser()
     if (user) {
       TodoModel.getByUser(user, (todos) => {
-        let stateCopy =this.JSONCopy(this.state)
+        let stateCopy = this.JSONCopy(this.state)
         stateCopy.todoList = todos
         this.setState(stateCopy)
       })
     }
   }
-  
-    
+
+
   render() {
     let todos = this.state.todoList
       .filter((item) => !item.deleted)
@@ -75,8 +75,14 @@ class App extends Component {
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
   }
   toggle(e, todo) {
+    let oldStatus=todo.status
     todo.status = todo.status === 'completed' ? '' : 'completed'
-    this.setState(this.state)
+    TodoModel.update(todo,()=>{
+      this.setState(this.state)
+    },(error)=>{
+      todo.status=oldStatus
+      this.setState(this.state)
+    })
   }
 
   changeTitle(event) {
@@ -107,8 +113,10 @@ class App extends Component {
   }
 
   delete(event, todo) {
-    todo.deleted = true
-    this.setState(this.state)
+    TodoModel.destroy(todo.id, () => {
+      todo.deleted = true
+      this.setState(this.state)
+    })
   }
 
 }
