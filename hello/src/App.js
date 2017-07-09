@@ -96,7 +96,7 @@ class App extends Component {
 
     let newTodo = {
       title: event.target.value,
-      states: null,
+      status:'',
       deleted: false
     }
 
