@@ -5,7 +5,8 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import 'normalize.css';
 import UserDialog from './UserDialog';
-import { getCurrentUser, signOut,todolistStore } from './leanCloud.js'
+import { getCurrentUser, signOut, TodoModel } from './leanCloud.js'
+
 
 class App extends Component {
   constructor(props) {
@@ -15,8 +16,18 @@ class App extends Component {
       newTodo: '',
       todoList: []     //每次进入页面的时候load
     }
-    this.JSONCopy=this.JSONCopy.bind(this)
+    this.JSONCopy = this.JSONCopy.bind(this)
+    let user = getCurrentUser()
+    if (user) {
+      TodoModel.getByUser(user, (todos) => {
+        let stateCopy =this.JSONCopy(this.state)
+        stateCopy.todoList = todos
+        this.setState(stateCopy)
+      })
+    }
   }
+  
+    
   render() {
     let todos = this.state.todoList
       .filter((item) => !item.deleted)
@@ -30,7 +41,7 @@ class App extends Component {
       })
     return (
       <div className="App">
-        <h1>{this.state.user.username|| '我'}的待办
+        <h1>{this.state.user.username || '我'}的待办
           {this.state.user.id ? <button onClick={this.signOut.bind(this)}>登出</button> : null}
         </h1>
         <div className="inputWrapper">
@@ -46,10 +57,9 @@ class App extends Component {
     )
   }
   signOut() {
-    todolistStore(this.state.todoList);   //登出的时候存储todolist
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
     let stateCopy = this.JSONCopy(this.state)
-    stateCopy.user = {} 
+    stateCopy.user = {}
     this.setState(stateCopy)
   }
   onSignUpOronSignIn(user) {
@@ -57,9 +67,9 @@ class App extends Component {
     stateCopy.user = user
     this.setState(stateCopy)
   }
-  JSONCopy(data){
-        return JSON.parse(JSON.stringify(data))
-    }  //JSON深拷贝封装
+  JSONCopy(data) {
+    return JSON.parse(JSON.stringify(data))
+  }  //JSON深拷贝封装
   componentDidUpdate() {
     //每次setState的时候存储用户操作
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
@@ -68,38 +78,40 @@ class App extends Component {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
   }
+
   changeTitle(event) {
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList
     })
   }
+
   addTodo(event) {
-    if ((/\S+/).test(event.target.value) === false) {
-      alert('输入为空，请输入有效的待办事项')
-      return
-    }
-    this.state.todoList.unshift({
-      id: idMaker(),
+
+    let newTodo = {
       title: event.target.value,
-      status: null,
+      states: null,
       deleted: false
-    })
-    this.setState({
-      newTodo: '',
-      todoList: this.state.todoList
+    }
+
+    TodoModel.create(newTodo, (id) => {
+      newTodo.id = id
+      this.state.todoList.unshift(newTodo)
+      this.setState({
+        newTodo: '',
+        todoList: this.state.todoList
+      })
+    }, (error) => {
+      console.log(error)
     })
   }
+
   delete(event, todo) {
     todo.deleted = true
     this.setState(this.state)
   }
+
 }
+
 export default App;
 
-let id = 0;
-
-function idMaker() {
-  id += 1
-  return id
-}

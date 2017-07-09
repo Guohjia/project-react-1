@@ -10,7 +10,9 @@ export default function (props) {
 }
 function submit(props, e) {
     if (e.key === 'Enter') {
-        props.onSubmit(e)
+        if (e.target.value.trim() !== '') { //输出为空拒绝
+            props.onSubmit(e)
+        }
     }
 }
 
