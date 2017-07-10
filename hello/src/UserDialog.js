@@ -19,6 +19,18 @@ export default class UserDialog extends Component {
     
     signUp(e) {
         e.preventDefault()
+        if(!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.)([a-zA-Z0-9_-])+$/.test(this.state.formData.email)){
+            alert('邮箱格式有误') 
+            return
+        }
+        if(!(/^([a-z0-9_]{6,16}$)/.test(this.state.formData.username))){
+            alert('用户名必须为6~16为的小写字母、数字、下滑线')
+            return
+        }
+        if(!(/.{6}/.test(this.state.formData.password))){
+            alert('密码长度必须大于6位')
+            return
+        }
         let { email, username, password } = this.state.formData
         let success = (user) => {
             this.props.onSignUp(user)
