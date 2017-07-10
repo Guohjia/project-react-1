@@ -56,17 +56,27 @@ class App extends Component {
       </div>
     )
   }
+
   signOut() {
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
     let stateCopy = this.JSONCopy(this.state)
     stateCopy.user = {}
+    stateCopy.todoList=[] //登出todoList清空
     this.setState(stateCopy)
   }
+  
   onSignUpOronSignIn(user) {
-    let stateCopy = this.JSONCopy(this.state)
+    let stateCopy = this.JSONCopy(this.state)  //块级作用域必须为函数作用域，才能让getByUser中的stateCopy起到作用
     stateCopy.user = user
-    this.setState(stateCopy)
+    TodoModel.getByUser(user, (todos) => {
+      if(todos.length!==0){
+        stateCopy.todoList = todos
+      }
+      this.setState(stateCopy)  //this.setState必须在这里，保证其在获取todos之后
+    })
+    // this.setState(stateCopy)  
   }
+
   JSONCopy(data) {
     return JSON.parse(JSON.stringify(data))
   }  //JSON深拷贝封装
@@ -75,12 +85,12 @@ class App extends Component {
     //componentDidUpdate 会在组件更新[数据更新]之后调用。可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。当用户的待办事项发生改变之后，即存储操作
   }
   toggle(e, todo) {
-    let oldStatus=todo.status
+    let oldStatus = todo.status
     todo.status = todo.status === 'completed' ? '' : 'completed'
-    TodoModel.update(todo,()=>{
+    TodoModel.update(todo, () => {
       this.setState(this.state)
-    },(error)=>{
-      todo.status=oldStatus
+    }, (error) => {
+      todo.status = oldStatus
       this.setState(this.state)
     })
   }
@@ -96,7 +106,7 @@ class App extends Component {
 
     let newTodo = {
       title: event.target.value,
-      status:'',
+      status: '',
       deleted: false
     }
 

@@ -37,7 +37,7 @@ export const TodoModel = {
     todo.save().then(function (response) {
       successFn.call(null, response.id)
     }, function (error) {
-      errorFn && errorFn.call(null, error) ///???
+      errorFn && errorFn.call(null, error) // 相当于if(errorFn){errorFn.call(null, error) }
     });
   },
 
