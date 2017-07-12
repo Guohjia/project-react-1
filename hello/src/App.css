@@ -16,3 +16,13 @@
 .App > .todoList>li:nth-child(even){
   background:rgba(52, 52, 52, .25);
 }
+.date {
+  display: flex;
+  align-items: center;
+}
+ .week{
+   margin-left: auto
+}
+.monthYear {
+  margin-left: 5px;
+}
