@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import './TodoItem.css'
+import {TodoModel } from './leanCloud.js'
 export default class TodoItem extends Component {
     render() {
         return (
             <div className="TodoItem">
                 <input type="checkbox" checked={this.props.todo.status === 'completed'}
                     onChange={this.toggle.bind(this)} />
-                <span className="title">{this.props.todo.title}</span>
+                <input type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
+                    onBlur={this.props.onBlur}/> 
+                {/*<span>{this.props.todo.title}</span> */} 
+                {/*失去焦点的时候发送请求，生成新的todo */}
                 <button onClick={this.delete.bind(this)}>删除</button>
             </div>
         )
+    }
+    changeTodo(e){
+        this.props.onChange(e,this.props.todo)
     }
     toggle(e) {
         this.props.onToggle(e, this.props.todo)

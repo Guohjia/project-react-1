@@ -6,8 +6,9 @@
 .TodoItem>.title{
     flex-grow: 1;
     padding: 0.5em;
-    color:#fff;
-  font-size:20px;
+    color:#000;
+    font-size:20px;
+    /*background:rgba(52, 52, 52, .65)*/
 }
 .TodoItem input,button{
     cursor: pointer;
