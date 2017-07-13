@@ -1,0 +1,38 @@
+.dateHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.date{
+  display: flex;
+  align-items: center
+}
+.calendar{
+  position: absolute;
+  left:50%;
+  transform: translate(-50%,0);
+  cursor: pointer;
+}
+.calendar:hover{
+  animation: 1s shake
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+       transform: rotate(30deg)
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: rotate(-30deg)
+    }
+}

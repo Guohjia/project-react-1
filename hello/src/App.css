@@ -1,28 +1,22 @@
-.App {
+.App{
+  display: flex;
+}
+.Todo {
   text-align: center;
   color:#333;
   border:1px solid grey;
   border-radius: 4px;
-  margin:2em;
+  margin:3.1em auto;
   padding:0 1em;
   min-height:20em;
   min-width: 32em;
   box-shadow: 0 0 1em hsla(0,0%,0%,0.15);
 }
-.App > .todoList>li:nth-child(odd){
+.Todo > .todoList>li:nth-child(odd){
   background:rgba(52, 52, 52, .65);
 }
 
-.App > .todoList>li:nth-child(even){
+.Todo > .todoList>li:nth-child(even){
   background:rgba(52, 52, 52, .25);
 }
-.date {
-  display: flex;
-  align-items: center;
-}
- .week{
-   margin-left: auto
-}
-.monthYear {
-  margin-left: 5px;
-}
+

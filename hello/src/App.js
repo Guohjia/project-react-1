@@ -3,6 +3,8 @@ import './App.css';
 import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
+import Menu from './menu'
+import DateHeader from './date'
 import 'normalize.css';
 import UserDialog from './UserDialog';
 import { getCurrentUser, signOut, TodoModel } from './leanCloud.js'
@@ -43,27 +45,20 @@ class App extends Component {
       })
     return (
       <div className="App">
-        <div className="date">
-          <h1>{this.getDate().day}
-          </h1>
-          <div className="monthYear">
-            <h4>{this.getDate().month}</h4>
-            <span>{this.getDate().year}</span>
+        <Menu />
+        <div className="Todo">
+          <DateHeader getDate={this.getDate.bind(this)}/>
+          <div className="inputWrapper">
+            <TodoInput content={this.state.newTodo}
+              onChange={this.changeTitle.bind(this)}
+              onSubmit={this.addTodo.bind(this)} />
           </div>
-          <h2 className="week">
-            {this.getDate().week}
-          </h2>
+          <ol className="todoList">
+            {todos}
+          </ol>
+          {this.state.user.id ? <button onClick={this.signOut.bind(this)}>登出</button> : null}
+          {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} onSignIn={this.onSignUpOronSignIn.bind(this)} />}
         </div>
-        <div className="inputWrapper">
-          <TodoInput content={this.state.newTodo}
-            onChange={this.changeTitle.bind(this)}
-            onSubmit={this.addTodo.bind(this)} />
-        </div>
-        <ol className="todoList">
-          {todos}
-        </ol>
-        {this.state.user.id ? <button onClick={this.signOut.bind(this)}>登出</button> : null}
-        {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} onSignIn={this.onSignUpOronSignIn.bind(this)} />}
       </div>
     )
   }
@@ -152,7 +147,7 @@ class App extends Component {
 
     TodoModel.create(newTodo, (id) => {
       newTodo.id = id
-      this.state.todoList.unshift(newTodo)
+      this.state.todoList.push(newTodo)
       this.setState({
         newTodo: '',
         todoList: this.state.todoList

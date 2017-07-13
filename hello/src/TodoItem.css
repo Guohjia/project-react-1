@@ -8,9 +8,13 @@
     padding: 0.5em;
     color:#000;
     font-size:20px;
-    background:rgba(52, 52, 52, .3)
+    background:rgba(52, 52, 52, .1);
+    border:none;
+    /*transition: all 0.3 linear;*/
 }
-
+.TodoItem>.title:focus{
+    outline: 1px solid #ccc
+}
 .TodoItem button{
     padding: 8px 6px;
     background:transparent;

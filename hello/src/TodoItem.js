@@ -15,13 +15,6 @@ export default class TodoItem extends Component {
             </div>
         )
     }
-    // submit(props, e) {
-    //     if (e.key === 'Enter') {
-    //         if (e.target.value.trim() !== '') { //输出为空拒绝
-    //             props.onBlur()
-    //         }
-    //     }
-    // }
     changeTodo(e) {
         this.props.onChange(e, this.props.todo)
     }

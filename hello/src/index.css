@@ -2,7 +2,7 @@ body {
   background-image:url("./images/1.jpg");
 }
 #root {
-  display: flex;
-  justify-content: center;
+  /*display: flex;*/
+  /*justify-content: space-between;*/
   min-height: 100vh;
 }
