@@ -6,6 +6,7 @@
     "leancloud-storage": "^2.5.0",
     "normalize.css": "^7.0.0",
     "react": "^15.5.4",
+    "react-datepicker": "^0.51.0",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {

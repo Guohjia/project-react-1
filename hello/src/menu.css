@@ -6,7 +6,6 @@
     width:15em;
     border:1px solid black;
     position: absolute;
-    transform: rotate(-360deg);
     transition: all .4s ease-out
 }
 .menuItem li{

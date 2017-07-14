@@ -3,7 +3,8 @@ import './App.css';
 import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
-import Menu from './menu'
+// import Menu from './menu'
+import Calendar from './calendar'
 import DateHeader from './date'
 import 'normalize.css';
 import UserDialog from './UserDialog';
@@ -17,6 +18,7 @@ class App extends Component {
       user: getCurrentUser() || {},
       newTodo: '',
       changedTodo: '',
+      setDate:'',
       todoList: []     //每次进入页面的时候load
     }
     this.JSONCopy = this.JSONCopy.bind(this)
@@ -24,6 +26,7 @@ class App extends Component {
     if (user) {
       TodoModel.getByUser(user, (todos) => {
         let stateCopy = this.JSONCopy(this.state)
+        stateCopy.setDate=this.getDate(new Date())
         stateCopy.todoList = todos
         this.setState(stateCopy)
       })
@@ -32,6 +35,7 @@ class App extends Component {
 
 
   render() {
+    let newdate=this.state.setDate
     let todos = this.state.todoList
       .filter((item) => !item.deleted)
       .map((item, index) => {
@@ -39,15 +43,18 @@ class App extends Component {
           <li key={index} >
             <TodoItem todo={item} onToggle={this.toggle.bind(this)}
               onDelete={this.delete.bind(this)} onChange={this.changeTodo.bind(this)}
-              onBlur={this.sendData.bind(this)} />
+              onBlur={this.sendData.bind(this)} 
+              onDate={newdate}/>
           </li>
         )
       })
     return (
       <div className="App">
-        <Menu />
+        {/*<Menu />*/}
+        
         <div className="Todo">
-          <DateHeader getDate={this.getDate.bind(this)}/>
+          <DateHeader getDate={newdate} />
+          <Calendar getDate={this.getDate.bind(this)}/>
           <div className="inputWrapper">
             <TodoInput content={this.state.newTodo}
               onChange={this.changeTitle.bind(this)}
@@ -63,15 +70,24 @@ class App extends Component {
     )
   }
 
-  getDate() {
-    let currentDate = new Date()
+  getDate(newDate) {
+    let setDate=newDate;
+    // newDate?setDate=new Date():console.log(newDate._d)
+    // console.log(newDate._d.getFullYear())
+    // newDate?()=>{setDate = newDate,console.log(newDate)}:setDate = new Date()
     let monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov.', 'Dec']
     let weekArray = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
     let dateObj = {
-      year: currentDate.getFullYear(), month: monthArray[currentDate.getMonth()],
-      day: currentDate.getDate(), week: weekArray[currentDate.getDay() - 1]
+      year: setDate.getFullYear(), month: monthArray[setDate.getMonth()],
+      day: setDate.getDate(), week: weekArray[setDate.getDay() - 1]
     }
-    return dateObj
+    if(setDate.getDate()===new Date().getDate()){
+       return dateObj
+    }else{
+      let stateCopy = this.JSONCopy(this.state);
+      stateCopy.setDate =dateObj;
+      this.setState(stateCopy)
+    }   
   }
   signOut() {
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
@@ -110,16 +126,32 @@ class App extends Component {
   }
 
   sendData(todo) {
+   if(!/\S/.test(this.state.changedTodo)){
+     console.log('失败了')
+     return
+   }else{
+     console.log('开始保存数据')
     let oldState = this.JSONCopy(this.state)  //保留更新之前的state
-    oldState.changedTodo = ''  //不管是否发送请求成功 changedTodo都将清空
+    oldState.changedTodo = '' //不管是否发送请求成功 changedTodo都将清空
     let changedTodo = this.state.changedTodo  //获得要更新的todo
     TodoModel.update(changedTodo, () => {
-      this.setState(this.state)
-    }, (error) => {
-      this.setState(oldState)  //请求失败 更新之前的state
-    })
+        let stateCopy = this.JSONCopy(this.state)
+        stateCopy.changedTodo ='' //保存改变的todo
+        this.setState(stateCopy)
+        console.log('成功啦')
+      }, (error) => {
+        this.setState(oldState)  //请求失败 更新之前的state
+      })
+     }
   }
-
+    // changedTodo===''?()=>{return}:()=>{
+    //     TodoModel.update(changedTodo, () => {
+    //   this.setState(this.state)
+    //   }, (error) => {
+    //   this.setState(oldState)  //请求失败 更新之前的state
+    //   })
+    // }
+  
   toggle(e, todo) {
     let oldStatus = todo.status
     todo.status = todo.status === 'completed' ? '' : 'completed'
