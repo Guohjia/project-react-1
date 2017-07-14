@@ -25,16 +25,23 @@
 
  .UserDialog form>.row{ display: flex; padding: .3em 0; }
  .UserDialog form>.row>label:first-child{ width: 5em; }
- .UserDialog form>.row.actions{ padding-left: 7em; }
+ .UserDialog form>.row.actions{ padding-left: 5em; }
  .row button {
      margin:0 auto
  }
  .signIn a,.forgotPassword a{
     color:#fff;
     text-decoration: none;
+    line-height: 36px;
+ }
+ .forgotPassword a{
+   margin-left: 8px;
  }
  .signIn a:hover,.forgotPassword  a:hover{
    color:black
+ }
+ .forgotPassword h3{
+   animation: signUp 2s infinite ease-out;
  }
  .signIn h2{
     margin-bottom: 8px;

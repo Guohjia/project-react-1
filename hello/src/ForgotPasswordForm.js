@@ -28,7 +28,7 @@ export default class ForgotPasswordForm extends  Component{
                             <RaisedButton label="Send Email To Reset"  type="submit"/> 
                         </MuiThemeProvider>
                         {/*<button type="submit">发送重置邮件</button>*/}
-                        <a href="#" onClick={this.props.onReturnToSignIn}>Back to Sign In</a>
+                        <a href="#" onClick={this.props.onReturnToSignIn}>Back</a>
                     </div>
                 </form>
             </div>
