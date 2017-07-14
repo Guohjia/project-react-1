@@ -12,6 +12,9 @@
   min-width: 32em;
   box-shadow: 0 0 1em hsla(0,0%,0%,0.15);
 }
+.Todo > .todoList>li{
+  position:relative;
+}
 .Todo > .todoList>li:nth-child(odd){
   background:rgba(52, 52, 52, .65);
 }
@@ -19,4 +22,27 @@
 .Todo > .todoList>li:nth-child(even){
   background:rgba(52, 52, 52, .25);
 }
-
+.exit svg{
+  margin:1em 0 0 2em;
+  transition: all .6s ease-in-out;
+  cursor: pointer;
+}
+.exit svg:hover{
+  transform: rotate(180deg) scale(1.4);
+}
+.line {
+  position: absolute;
+  left:5%;
+  top:50%;
+  border-bottom: 2px solid rgba(52, 52, 52, .7);
+  transform: translate(0,-50%);
+  animation: line .3s ease-in forwards;
+}
+@keyframes line{
+  0%{min-width: 0%;}
+  100%{min-width: 86%}
+}
+/*@keyframes lineNone{
+  0%{min-width: 93%;}
+  100%{min-width: 93%}
+}*/

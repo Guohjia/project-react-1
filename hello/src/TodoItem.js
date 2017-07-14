@@ -4,14 +4,13 @@ export default class TodoItem extends Component {
     render() {
         return (
             <div className="TodoItem">
-                <div><h3>{this.props.onDate.day}</h3></div>
-                <div className="checkbox">
+                {/*<div className="checkbox">*/}
                     <input type="checkbox" checked={this.props.todo.status === 'completed'}
                         onChange={this.toggle.bind(this)} />
-                </div>
+                {/*</div>*/}
                 <input type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
                     onBlur={this.props.onBlur}
-                     />
+                   style={this.props.onstatus==='completed'?{color:"#ccc"}:null}/>
                 {/*<span>{this.props.todo.title}</span> */}
                 {/*失去焦点的时候发送请求，生成新的todo */}
                 <span onClick={this.delete.bind(this)}>
