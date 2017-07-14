@@ -48,9 +48,11 @@ export default class UserDialog extends Component {
         signUp(email, username, password, success, error)
     }
     signIn(e) {
+        console.log(1) //登录中 显示load插件
         e.preventDefault()
         let { username, password } = this.state.formData
         let success = (user) => {
+            console.log(2) //登录成功
             this.props.onSignIn(user)
         }
         let error = (error) => {

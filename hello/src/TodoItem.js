@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import './TodoItem.css'
+import './TodoItem.css';
+import Checkbox from 'material-ui/Checkbox';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 export default class TodoItem extends Component {
     render() {
         return (
             <div className="TodoItem">
-                {/*<div className="checkbox">*/}
-                    <input type="checkbox" checked={this.props.todo.status === 'completed'}
-                        onChange={this.toggle.bind(this)} />
-                {/*</div>*/}
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <div>
+                    <Checkbox   checked={this.props.todo.status === 'completed'}
+                    onClick={this.toggle.bind(this)}
+                     />
+                </div>
+                </MuiThemeProvider>
+                {/*<input type="checkbox" checked={this.props.todo.status === 'completed'}
+                        onChange={this.toggle.bind(this)} />*/}
                 <input type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
                     onBlur={this.props.onBlur}
                    style={this.props.onstatus==='completed'?{color:"#ccc"}:null}/>
@@ -21,9 +30,11 @@ export default class TodoItem extends Component {
         )
     }
     changeTodo(e) {
+        
         this.props.onChange(e, this.props.todo)
     }
     toggle(e) {
+        console.log(1)
         this.props.onToggle(e, this.props.todo)
     }
     delete(e) {

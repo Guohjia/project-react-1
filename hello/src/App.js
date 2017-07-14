@@ -10,7 +10,6 @@ import 'normalize.css';
 import UserDialog from './UserDialog';
 import { getCurrentUser, signOut, TodoModel } from './leanCloud.js'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
