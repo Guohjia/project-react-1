@@ -17,7 +17,7 @@ class App extends Component {
       user: getCurrentUser() || {},
       newTodo: '',
       changedTodo: '',
-      setDate:'',
+      // setDate:'',
       todoList: []     //每次进入页面的时候load
     }
     this.JSONCopy = this.JSONCopy.bind(this)
@@ -25,7 +25,7 @@ class App extends Component {
     if (user) {
       TodoModel.getByUser(user, (todos) => {
         let stateCopy = this.JSONCopy(this.state)
-        stateCopy.setDate=this.getDate(new Date())
+        // stateCopy.setDate=this.getDate(new Date())
         stateCopy.todoList = todos
         this.setState(stateCopy)
       },(error)=>{console.log(error)})
@@ -60,7 +60,7 @@ class App extends Component {
             </svg>
           </div> : null}
         <div className="Todo">
-          <DateHeader getDate={newdate} />
+          <DateHeader getDate={this.getDate(new Date())} />
           {/*<Calendar getDate={this.getDate.bind(this)}/>*/}
           <div className="inputWrapper">
             <TodoInput content={this.state.newTodo}
@@ -84,13 +84,14 @@ class App extends Component {
       year: setDate.getFullYear(), month: monthArray[setDate.getMonth()],
       day: setDate.getDate(), week: weekArray[setDate.getDay() - 1]
     }
-    if(setDate.getDate()===new Date().getDate()){
-       return dateObj
-    }else{
-      let stateCopy = this.JSONCopy(this.state);
-      stateCopy.setDate =dateObj;
-      this.setState(stateCopy)
-    }   
+    return dateObj;
+    // if(setDate.getDate()===new Date().getDate()){
+    //    return dateObj
+    // }else{
+    //   let stateCopy = this.JSONCopy(this.state);
+    //   stateCopy.setDate =dateObj;
+    //   this.setState(stateCopy)
+    // }   
   }
   signOut() {
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
