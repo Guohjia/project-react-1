@@ -34,7 +34,6 @@ class App extends Component {
 
 
   render() {
-    let newdate=this.state.setDate
     let todos = this.state.todoList
       .filter((item) => !item.deleted)
       .map((item, index) => {

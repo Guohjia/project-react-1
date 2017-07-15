@@ -3,7 +3,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 export default function(props) {
     const style = {
        margin: 12,
