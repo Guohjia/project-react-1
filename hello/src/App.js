@@ -69,7 +69,8 @@ class App extends Component {
           <ol className="todoList">
             {todos}
           </ol>
-          {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} onSignIn={this.onSignUpOronSignIn.bind(this)} />}
+          {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} 
+           onSignIn={this.onSignUpOronSignIn.bind(this)} />}
         </div>
       </div>
     )

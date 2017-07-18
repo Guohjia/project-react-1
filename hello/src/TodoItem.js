@@ -15,12 +15,9 @@ export default class TodoItem extends Component {
                      />
                 </div>
                 </MuiThemeProvider>
-                {/*<input type="checkbox" checked={this.props.todo.status === 'completed'}
-                        onChange={this.toggle.bind(this)} />*/}
                 <input type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
                     onBlur={this.props.onBlur}
                    style={this.props.onstatus==='completed'?{color:"#ccc"}:null}/>
-                {/*<span>{this.props.todo.title}</span> */}
                 {/*失去焦点的时候发送请求，生成新的todo */}
                 <span onClick={this.delete.bind(this)}>
                     <svg d="1499943082297" className="iconDelete"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"   width="2em" height="2em"><defs><style type="text/css"></style></defs>

@@ -23,8 +23,9 @@ export default class UserDialog extends Component {
             alert('邮箱格式有误') 
             return
         }
-        if(!(/^([a-z0-9_]{6,16}$)/.test(this.state.formData.username))){
-            alert('用户名必须为6~16为的小写字母、数字、下滑线')
+        if(!(/^([a-z0-9_]{6,16}$)/.test(this.state.formData.username))
+          ||/(^[A-Z]*$)|(^[a-z]*$)|(^[0-9]*$)|(^_*$)/.test(this.state.formData.username)){
+            alert('用户名必须为6~16为的小写字母、数字、下滑线，且至少包含两种及以上')
             return
         }
         if(!(/.{6}/.test(this.state.formData.password))){
