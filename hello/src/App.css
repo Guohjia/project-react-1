@@ -32,15 +32,16 @@
 }
 .line {
   position: absolute;
-  left:5%;
+  left:9%;
   top:50%;
   border-bottom: 2px solid rgba(52, 52, 52, .7);
   transform: translate(0,-50%);
   animation: line .3s ease-in forwards;
+  z-index: 999;
 }
 @keyframes line{
   0%{min-width: 0%;}
-  100%{min-width: 86%}
+  100%{min-width: 80%}
 }
 /*@keyframes lineNone{
   0%{min-width: 93%;}

@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 import './TodoItem.css';
 import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 export default class TodoItem extends Component {
     render() {
+        const textStyle={
+            marginTop:0,
+            fontSize:"20px",
+        },
+        CheckboxStyle={
+            left:"1%"
+        }
         return (
             <div className="TodoItem">
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div>
                     <Checkbox   checked={this.props.todo.status === 'completed'}
-                    onClick={this.toggle.bind(this)}
+                        onClick={this.toggle.bind(this)}
+                        iconStyle={CheckboxStyle}
                      />
                 </div>
                 </MuiThemeProvider>
-                <input type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
+                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <TextField type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
                     onBlur={this.props.onBlur}
-                   style={this.props.onstatus==='completed'?{color:"#ccc"}:null}/>
+                    multiLine="true"
+                    textareaStyle={this.props.onstatus==='completed'?{color:"#ccc",marginTop:0,fontSize:"20px"}:textStyle}/>
+                    {/* textareaStyle={this.props.onstatus==='completed'?{color:"#ccc"}:null}/> */}
+                </MuiThemeProvider>
                 {/*失去焦点的时候发送请求，生成新的todo */}
                 <span onClick={this.delete.bind(this)}>
                     <svg d="1499943082297" className="iconDelete"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"   width="2em" height="2em"><defs><style type="text/css"></style></defs>

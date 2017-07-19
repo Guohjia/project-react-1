@@ -28,7 +28,7 @@ class App extends Component {
         // stateCopy.setDate=this.getDate(new Date())
         stateCopy.todoList = todos
         this.setState(stateCopy)
-      },(error)=>{console.log(error)})
+      })
     }
   }
 
