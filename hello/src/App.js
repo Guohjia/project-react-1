@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import './reset.css';
-import TodoInput from './TodoInput';
-import TodoItem from './TodoItem';
-// import Menu from './menu'
-// import Calendar from './calendar'
-import DateHeader from './date'
-import 'normalize.css';
+import './css/App.css';
+import './css/reset.css';
+import TodoInput from './Todo/TodoInput';
+import TodoItem from './Todo/TodoItem';
+import DateHeader from './Todo/date'
 import UserDialog from './UserDialog';
 import { getCurrentUser, signOut, TodoModel } from './leanCloud.js'
 

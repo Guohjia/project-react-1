@@ -1,5 +1,6 @@
 import React from 'react';
-import './TodoInput.css'
+import '../css/TodoInput.css'
+
 export default function (props) {
     return <input type="text" value={props.content}
         className="TodoInput"

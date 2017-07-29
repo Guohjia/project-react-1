@@ -1,6 +1,5 @@
 import React ,{ Component } from 'react'
-// import Calendar from './calendar'
-import './date.css'
+import '../css/date.css'
 
 export default class DateHeader extends Component{
    render(){

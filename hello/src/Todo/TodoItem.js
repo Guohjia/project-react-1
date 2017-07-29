@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TodoItem.css';
+import '../css/TodoItem.css';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
