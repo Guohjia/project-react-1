@@ -8,15 +8,6 @@
   display: flex;
   align-items: center
 }
-.calendar{
-  position: absolute;
-  left:50%;
-  transform: translate(-50%,0);
-  cursor: pointer;
-}
-.calendar:hover{
-  animation: 1s shake
-}
 
 @keyframes shake {
     0%, 100% {

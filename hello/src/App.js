@@ -47,18 +47,16 @@ class App extends Component {
       })
     return (
       <div className="App">
-        {/*<Menu />*/}
-        {this.state.user.id ? 
+          {this.state.user.id ? 
         <div onClick={this.signOut.bind(this)} className="exit">
-            <svg fill="rgba(52, 52, 52, .8)" height="4em" viewBox="0 0 24 24" width="4em" xmlns="http://www.w3.org/2000/svg">
+            <svg fill="#fff" height="4em" viewBox="0 0 24 24" width="4em" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none"/>
               <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
             </svg>
-          </div> : null}
+          </div> : null}  
         <div className="Todo">
-          <DateHeader getDate={this.getDate(new Date())} />
-          {/*<Calendar getDate={this.getDate.bind(this)}/>*/}
-          <div className="inputWrapper">
+           <DateHeader getDate={this.getDate(new Date())} /> 
+           <div className="inputWrapper">
             <TodoInput content={this.state.newTodo}
               onChange={this.changeTitle.bind(this)}
               onSubmit={this.addTodo.bind(this)} />
@@ -67,7 +65,7 @@ class App extends Component {
             {todos}
           </ol>
           {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} 
-           onSignIn={this.onSignUpOronSignIn.bind(this)} />}
+           onSignIn={this.onSignUpOronSignIn.bind(this)} />} 
         </div>
       </div>
     )
@@ -76,10 +74,10 @@ class App extends Component {
   getDate(newDate) {
     let setDate=newDate;
     let monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov.', 'Dec']
-    let weekArray = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
+    let weekArray = ['SUNDAY','MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
     let dateObj = {
       year: setDate.getFullYear(), month: monthArray[setDate.getMonth()],
-      day: setDate.getDate(), week: weekArray[setDate.getDay() - 1]
+      day: setDate.getDate(), week: weekArray[setDate.getDay()]
     }
     return dateObj;
     // if(setDate.getDate()===new Date().getDate()){

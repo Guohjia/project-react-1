@@ -25,9 +25,9 @@ export default class TodoItem extends Component {
                 </div>
                 </MuiThemeProvider>
                 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <TextField type="text" className="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
+                <TextField type="text" className="title" id="title" value={this.props.todo.title} onChange={this.changeTodo.bind(this)}
                     onBlur={this.props.onBlur}
-                    multiLine="true"
+                    multiLine={true}
                     textareaStyle={this.props.onstatus==='completed'?{color:"#ccc",marginTop:0,fontSize:"20px"}:textStyle}/>
                     {/* textareaStyle={this.props.onstatus==='completed'?{color:"#ccc"}:null}/> */}
                 </MuiThemeProvider>
