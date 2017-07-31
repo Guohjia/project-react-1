@@ -1,3 +1,15 @@
+@media screen and (min-width:500px){
+  .Todo{
+    max-width: 32em;
+  }
+}
+
+@media screen and (max-width:500px){
+  .Todo{
+    max-width: 90vw;
+  }
+}
+
 .App{
   /* display: flex; */
   /* border:1px solid blue; */
@@ -12,7 +24,7 @@
   padding:0 1em;
   /* min-height:20em; */
   /* max-height: 70vh;     */
-  max-width: 32em;
+  /* max-width: 32em; */
   box-shadow: 0 0 1em hsla(0,0%,0%,0.15); 
 }
 .Todo > .todoList>li{

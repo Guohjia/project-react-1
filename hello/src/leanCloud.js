@@ -22,7 +22,6 @@ export const TodoModel = {
       errorFn && errorFn.call(null, error)
     })
   },
-
   create({ status, title, deleted }, successFn, errorFn) {
     let Todo = AV.Object.extend('Todo')
     let todo = new Todo()

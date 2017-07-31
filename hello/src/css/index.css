@@ -1,10 +1,11 @@
 body {
   /* background-image:url("../images/1.jpg"); */
   /* background-position:50% 50%; */
-  background: linear-gradient(rgb(25, 37, 63),#ccc,rgb(25, 37, 63));
+  background: rgb(25, 37, 63);
   color:#fff;
 }
 #root {
+  /* border:1px solid red; */
   /*display: flex;*/
   /*justify-content: space-between;*/
   /* min-height: 100vh; */
