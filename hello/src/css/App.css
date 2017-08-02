@@ -1,31 +1,34 @@
 @media screen and (min-width:500px){
-  .Todo{
+  .TodoWrapper{
     max-width: 32em;
   }
 }
 
 @media screen and (max-width:500px){
-  .Todo{
+  .TodoWrapper{
     max-width: 90vw;
   }
 }
 
-.App{
-  /* display: flex; */
-  /* border:1px solid blue; */
-  /* max-width: 100vw;*/
-  /* height: 100vh;  */
+
+/* 为了去除滚动条 */
+.TodoWrapper{
+  height: 90vh;
+  overflow: hidden;
+  margin: 0 auto;
 }
-.Todo {
+.TodoWrapper-2 {
+  box-sizing: content-box;
   text-align: center;
-  border:1px solid gray;
   border-radius: 4px;
-  margin:0 auto;
-  padding:0 1em;
-  /* min-height:20em; */
-  /* max-height: 70vh;     */
-  /* max-width: 32em; */
-  box-shadow: 0 0 1em hsla(0,0%,0%,0.15); 
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-right: 20px;
+}
+.Todo{
+  border:1px solid grey;
+  padding: 0 1em;
 }
 .Todo > .todoList>li{
   position:relative;
@@ -66,3 +69,4 @@
   0%{min-width: 93%;}
   100%{min-width: 93%}
 }*/
+

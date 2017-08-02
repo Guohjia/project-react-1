@@ -33,59 +33,56 @@ class App extends Component {
     let todos = this.state.todoList
       .filter((item) => !item.deleted)
       .map((item, index) => {
-        return ( 
+        return (
           <li key={index} >
-            {item.status==='completed'?<div className="line"></div>:null}
+            {item.status === 'completed' ? <div className="line"></div> : null}
             <TodoItem todo={item} onToggle={this.toggle.bind(this)}
               onDelete={this.delete.bind(this)} onChange={this.changeTodo.bind(this)}
               onBlur={this.sendData.bind(this)}
-              onstatus={item.status} 
+              onstatus={item.status}
             />
           </li>
         )
       })
     return (
       <div className="App">
-          {this.state.user.id ? 
-        <div onClick={this.signOut.bind(this)} className="exit">
-            <svg fill="#fff" height="4em" viewBox="0 0 24 24" width="4em" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+        {this.state.user.id ?
+          <div className="exit">
+            <svg fill="#000" height="4em" viewBox="0 0 24 24" width="4em" xmlns="http://www.w3.org/2000/svg" onClick={this.signOut.bind(this)}>
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
             </svg>
-          </div> : null}  
-        <div className="Todo">
-           <DateHeader getDate={this.getDate(new Date())} /> 
-           <div className="inputWrapper">
-            <TodoInput content={this.state.newTodo}
-              onChange={this.changeTitle.bind(this)}
-              onSubmit={this.addTodo.bind(this)} />
+          </div> : null}
+        <div className="TodoWrapper">
+          <div className="TodoWrapper-2">
+            <div className="Todo">
+              <DateHeader getDate={this.getDate(new Date())} />
+
+              <TodoInput content={this.state.newTodo}
+                onChange={this.changeTitle.bind(this)}
+                onSubmit={this.addTodo.bind(this)} />
+
+              <ol className="todoList">
+                {todos}
+              </ol>
+              {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)}
+                onSignIn={this.onSignUpOronSignIn.bind(this)} />}
+            </div>
           </div>
-          <ol className="todoList">
-            {todos}
-          </ol>
-          {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUpOronSignIn.bind(this)} 
-           onSignIn={this.onSignUpOronSignIn.bind(this)} />} 
         </div>
       </div>
     )
   }
 
   getDate(newDate) {
-    let setDate=newDate;
+    let setDate = newDate;
     let monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov.', 'Dec']
-    let weekArray = ['SUNDAY','MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
+    let weekArray = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
     let dateObj = {
       year: setDate.getFullYear(), month: monthArray[setDate.getMonth()],
       day: setDate.getDate(), week: weekArray[setDate.getDay()]
     }
     return dateObj;
-    // if(setDate.getDate()===new Date().getDate()){
-    //    return dateObj
-    // }else{
-    //   let stateCopy = this.JSONCopy(this.state);
-    //   stateCopy.setDate =dateObj;
-    //   this.setState(stateCopy)
-    // }   
   }
   signOut() {
     signOut();  //这里的signOut,todolistStore是从leanCloud导入的LeanCloud,每次退出的时候上传todolist到数据库
@@ -124,22 +121,22 @@ class App extends Component {
   }
 
   sendData(todo) {
-   if(!/\S/.test(this.state.changedTodo)){
-     return //改变的todo为空字符串，拒绝请求
-   }else{
-    let oldState = this.JSONCopy(this.state)  //保留更新之前的state
-    oldState.changedTodo = '' //不管是否发送请求成功 changedTodo都将清空
-    let changedTodo = this.state.changedTodo  //获得要更新的todo
-    TodoModel.update(changedTodo, () => {
+    if (!/\S/.test(this.state.changedTodo)) {
+      return //改变的todo为空字符串，拒绝请求
+    } else {
+      let oldState = this.JSONCopy(this.state)  //保留更新之前的state
+      oldState.changedTodo = '' //不管是否发送请求成功 changedTodo都将清空
+      let changedTodo = this.state.changedTodo  //获得要更新的todo
+      TodoModel.update(changedTodo, () => {
         let stateCopy = this.JSONCopy(this.state)
-        stateCopy.changedTodo ='' //保存改变的todo
+        stateCopy.changedTodo = '' //保存改变的todo
         this.setState(stateCopy)
       }, (error) => {
         this.setState(oldState)  //请求失败 更新之前的state
       })
-     }
+    }
   }
-  
+
   toggle(e, todo) {
     let oldStatus = todo.status
     todo.status = todo.status === 'completed' ? '' : 'completed'
@@ -167,7 +164,7 @@ class App extends Component {
 
     TodoModel.create(newTodo, (id) => {
       newTodo.id = id
-      this.state.todoList.push(newTodo)
+      this.state.todoList.unshift(newTodo)
       this.setState({
         newTodo: '',
         todoList: this.state.todoList

@@ -1,12 +1,9 @@
 body {
-  /* background-image:url("../images/1.jpg"); */
+   background-image:url("../images/todo.jpg");
+   background-size: cover; 
   /* background-position:50% 50%; */
-  background: rgb(25, 37, 63); 
-  color:#fff;
+  /* background: rgb(25, 37, 63);  */
+  /* background: -webkit-linear-gradient(top, rgb(0, 0, 0) 50%, rgb(25, 19, 39)80%, rgb(43, 32, 72)); */
+  height: 100vh;
 }
-#root {
-  /* border:1px solid red; */
-  /*display: flex;*/
-  /*justify-content: space-between;*/
-  /* min-height: 100vh; */
-}
+

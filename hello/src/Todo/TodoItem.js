@@ -9,7 +9,7 @@ export default class TodoItem extends Component {
     render() {
         const textStyle={
             marginTop:0,
-            fontSize:"20px",
+            fontSize:"20px"
         },
         CheckboxStyle={
             left:"1%"

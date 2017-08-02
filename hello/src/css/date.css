@@ -8,6 +8,9 @@
   display: flex;
   align-items: center
 }
+.date h1{
+    margin-right: .3em;
+}
 
 @keyframes shake {
     0%, 100% {

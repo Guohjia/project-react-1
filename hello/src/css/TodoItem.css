@@ -6,10 +6,9 @@
  .TodoItem>.title{
     flex-grow: 1;
     padding: 0.5em;
-    color:#fff;
     text-shadow:  0 0 10px #000;
-    background:rgba(52, 52, 52, .1);
-    border:none;
+    /* background:rgba(52, 52, 52, .1); */
+    /* border:none; */
 }
 /* .TodoItem>.title:focus{
     outline: 1px solid #ccc;
@@ -25,3 +24,4 @@
     transition: all .3s linear;
     transform: scale(1.2)
 }
+
