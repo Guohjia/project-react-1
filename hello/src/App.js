@@ -22,7 +22,6 @@ class App extends Component {
     if (user) {
       TodoModel.getByUser(user, (todos) => {
         let stateCopy = this.JSONCopy(this.state)
-        // stateCopy.setDate=this.getDate(new Date())
         stateCopy.todoList = todos
         this.setState(stateCopy)
       })
